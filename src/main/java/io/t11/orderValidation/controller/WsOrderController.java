@@ -32,10 +32,20 @@ public class WsOrderController {
         logger.info("Request received for order validation: " + orderRequest.getProduct());
         ObjectFactory objectFactory = new ObjectFactory();
         ValidateOrderResponse validateOrderResponse=objectFactory.createValidateOrderResponse();
-        Order order = orderService.validateOrder(orderRequest);
-        validateOrderResponse.setOrder(order);
-        validateOrderResponse.setStatus("Order successful");
-        validOrderPublisher.publishValidOrder(order);
+        if (orderService.validateOrder(orderRequest)){
+            Order order=new Order();
+            order.setQuantity(orderRequest.getQuantity());
+            order.setPrice(orderRequest.getPrice());
+            order.setProduct(orderRequest.getProduct());
+            order.setSide(orderRequest.getSide());
+            validateOrderResponse.setOrder(order);
+            validateOrderResponse.setStatus("Order successful");
+            validOrderPublisher.publishValidOrder(order);
+
+        }else {
+            validateOrderResponse.setOrder(null);
+            validateOrderResponse.setStatus("Order failed");
+        }
         return validateOrderResponse;
     }
 
