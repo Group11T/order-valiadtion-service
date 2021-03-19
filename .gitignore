@@ -134,5 +134,6 @@ hs_err_pid*
 ### Java-Web ###
 ## ignoring target file
 target/
+build/
 
 # End of https://www.toptal.com/developers/gitignore/api/java,java-web,intellij
