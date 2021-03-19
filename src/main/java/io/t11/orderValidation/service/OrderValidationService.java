@@ -34,6 +34,6 @@ public class OrderValidationService implements IOrderValidationService{
 //        String findPortfolioUrl  = "http://localhost:8080/find-portfolio/2";
 //        ResponseEntity<String> response = restTemplate.getForEntity(findPortfolioUrl , String.class);
 //        return response.hasBody();
-        return false;
+        return true;
     }
 }
