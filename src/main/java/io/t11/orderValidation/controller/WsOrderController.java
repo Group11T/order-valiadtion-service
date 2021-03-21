@@ -32,7 +32,9 @@ public class WsOrderController {
         logger.info("Request received for order validation: " + orderRequest.getProduct());
         ObjectFactory objectFactory = new ObjectFactory();
         ValidateOrderResponse validateOrderResponse=objectFactory.createValidateOrderResponse();
+        logger.info("Outside: ");
         if (orderService.validateOrder(orderRequest)){
+            logger.info("inside: ");
             Order order=new Order();
             order.setQuantity(orderRequest.getQuantity());
             order.setPrice(orderRequest.getPrice());
