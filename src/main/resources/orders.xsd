@@ -6,6 +6,7 @@
     <xs:element name="ValidateOrderRequest">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="orderId" type="xs:long"/>
                 <xs:element name="product" type="xs:string"/>
                 <xs:element name="quantity" type="xs:int"/>
                 <xs:element name="price" type="xs:double"/>
@@ -25,6 +26,7 @@
 
     <xs:complexType name="Order">
         <xs:sequence>
+            <xs:element name="orderId" type="xs:long"/>
             <xs:element name="product" type="xs:string"/>
             <xs:element name="quantity" type="xs:int"/>
             <xs:element name="price" type="xs:double"/>
