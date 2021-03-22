@@ -9,19 +9,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 
 @Configuration
 public class RedisConfig {
 
     @Autowired
-    private RedisConnectionFactory redisConnectionFactory;
-
-    @Bean
-    ChannelTopic topic() {
-        return new ChannelTopic("valid-orders");
-    }
+    RedisConnectionFactory redisConnectionFactory;
 
     @Bean
     RedisTemplate<String, Order> redisTemplate(RedisConnectionFactory redisConnectionFactory){
@@ -36,6 +30,7 @@ public class RedisConfig {
     @Bean
     @Primary
     IOrderValidationPublisher orderPublisher(){
-        return new OrderValidationPublisher(redisTemplate(redisConnectionFactory),topic());
+        return new OrderValidationPublisher(redisTemplate(redisConnectionFactory));
     }
+
 }

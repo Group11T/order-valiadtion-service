@@ -7,6 +7,7 @@
             <val:quantity>2</val:quantity>s
             <val:price>4.3</val:price>
             <val:side>Buy</val:side>
+            <val:userId>1L</val:userId>
         </val:ValidateOrderRequest>
     </soapenv:Body>
 </soapenv:Envelope>

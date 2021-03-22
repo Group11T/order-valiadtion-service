@@ -1,5 +1,6 @@
 package io.t11.orderValidation.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.group11.soap.api.order_validation.ObjectFactory;
 import com.group11.soap.api.order_validation.Order;
 import com.group11.soap.api.order_validation.ValidateOrderRequest;
@@ -24,26 +25,26 @@ public class WsOrderController {
     OrderValidationService orderService;
 
     @Autowired
-    IOrderValidationPublisher validOrderPublisher;
+    IOrderValidationPublisher orderPublisher;
 
     @PayloadRoot(namespace = NAMESPACE_URI,localPart = "ValidateOrderRequest")
     @ResponsePayload
-    public ValidateOrderResponse validateOrder(@RequestPayload ValidateOrderRequest orderRequest){
+    public ValidateOrderResponse validateOrder(@RequestPayload ValidateOrderRequest orderRequest) throws JsonProcessingException {
         logger.info("Request received for order validation: " + orderRequest.getProduct());
         ObjectFactory objectFactory = new ObjectFactory();
         ValidateOrderResponse validateOrderResponse=objectFactory.createValidateOrderResponse();
+
+
         if (orderService.validateOrder(orderRequest)){
             Order order=new Order();
             order.setQuantity(orderRequest.getQuantity());
             order.setPrice(orderRequest.getPrice());
             order.setProduct(orderRequest.getProduct());
             order.setSide(orderRequest.getSide());
-            validateOrderResponse.setOrder(order);
-            validateOrderResponse.setStatus("Order successful");
-            validOrderPublisher.publishValidOrder(order);
+            orderPublisher.publishValidOrder(order);
 
+            validateOrderResponse.setStatus("Order successful");
         }else {
-            validateOrderResponse.setOrder(null);
             validateOrderResponse.setStatus("Order failed");
         }
         return validateOrderResponse;
