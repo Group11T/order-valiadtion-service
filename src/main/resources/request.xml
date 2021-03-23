@@ -3,7 +3,7 @@
     <soapenv:Header/>
     <soapenv:Body>
         <val:ValidateOrderRequest>
-            <val:orderId>1L</val:orderId>
+            <val:orderId>1</val:orderId>
             <val:product>AAPL</val:product>
             <val:quantity>2</val:quantity>s
             <val:price>4.3</val:price>

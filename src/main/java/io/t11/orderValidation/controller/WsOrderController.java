@@ -35,7 +35,7 @@ public class WsOrderController {
         logger.info("Request received for order validation: " + orderRequest.getOrderId());
         ObjectFactory objectFactory = new ObjectFactory();
         ValidateOrderResponse validateOrderResponse=objectFactory.createValidateOrderResponse();
-        System.out.println(orderRequest);
+
         if (orderValidationService.validateOrder(orderRequest)){
 
             CreatedOrder order = new CreatedOrder();
