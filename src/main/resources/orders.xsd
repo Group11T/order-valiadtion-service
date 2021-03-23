@@ -23,14 +23,4 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
-<!--    <xs:complexType name="Order">-->
-<!--        <xs:sequence>-->
-<!--            <xs:element name="orderId" type="xs:long"/>-->
-<!--            <xs:element name="product" type="xs:string"/>-->
-<!--            <xs:element name="quantity" type="xs:int"/>-->
-<!--            <xs:element name="price" type="xs:double"/>-->
-<!--            <xs:element name="side" type="xs:string"/>-->
-<!--        </xs:sequence>-->
-<!--    </xs:complexType>-->
 </xs:schema>
