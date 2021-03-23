@@ -45,6 +45,7 @@ public class WsOrderController {
             order.setProduct(orderRequest.getProduct());
             order.setSide(orderRequest.getSide());
             order.setValidationStatus(successStatus);
+            order.setUserId(orderRequest.getUserId());
             orderPublisher.publishValidOrder(order);
 
             validateOrderResponse.setStatus(successStatus);

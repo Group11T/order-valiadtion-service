@@ -21,6 +21,8 @@ public class Order {
 
     private String validationStatus;
 
+    private Long userId;
+
     public Long getId() {
         return id;
     }
@@ -69,6 +71,14 @@ public class Order {
         this.validationStatus = validationStatus;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -79,12 +89,13 @@ public class Order {
                 Objects.equals(id, order.id) &&
                 Objects.equals(product, order.product) &&
                 Objects.equals(side, order.side) &&
-                Objects.equals(validationStatus, order.validationStatus);
+                Objects.equals(validationStatus, order.validationStatus) &&
+                Objects.equals(userId, order.userId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, product, quantity, price, side, validationStatus);
+        return Objects.hash(id, product, quantity, price, side, validationStatus, userId);
     }
 
     @Override
@@ -96,6 +107,7 @@ public class Order {
                 ", price=" + price +
                 ", side='" + side + '\'' +
                 ", validationStatus='" + validationStatus + '\'' +
+                ", userId=" + userId +
                 '}';
     }
 }
