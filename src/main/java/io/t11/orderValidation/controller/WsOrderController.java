@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.group11.soap.api.order_validation.ObjectFactory;
 import com.group11.soap.api.order_validation.ValidateOrderRequest;
 import com.group11.soap.api.order_validation.ValidateOrderResponse;
-import io.t11.orderValidation.model.CreatedOrder;
+import io.t11.orderValidation.model.Stock;
 import io.t11.orderValidation.service.IOrderValidationPublisher;
 import io.t11.orderValidation.service.OrderValidationService;
 import org.slf4j.Logger;
@@ -38,14 +38,14 @@ public class WsOrderController {
 
         if (orderValidationService.validateOrder(orderRequest)){
 
-            CreatedOrder order = new CreatedOrder();
-            order.setId(orderRequest.getOrderId());
-            order.setQuantity(orderRequest.getQuantity());
-            order.setPrice(orderRequest.getPrice());
-            order.setProduct(orderRequest.getProduct());
-            order.setSide(orderRequest.getSide());
-            order.setValidationStatus(successStatus);
-            orderPublisher.publishValidOrder(order);
+            Stock stock = new Stock();
+            stock.setId(orderRequest.getOrderId());
+            stock.setQuantity(orderRequest.getQuantity());
+            stock.setPrice(orderRequest.getPrice());
+            stock.setProduct(orderRequest.getProduct());
+            stock.setSide(orderRequest.getSide());
+            stock.setValidationStatus(successStatus);
+            orderPublisher.publishValidOrder(stock);
 
             validateOrderResponse.setStatus(successStatus);
         }else {
