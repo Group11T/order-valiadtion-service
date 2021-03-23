@@ -1,6 +1,6 @@
 package io.t11.orderValidation.config;
 
-import com.group11.soap.api.order_validation.Order;
+import io.t11.orderValidation.model.Order;
 import io.t11.orderValidation.service.IOrderValidationPublisher;
 import io.t11.orderValidation.service.OrderValidationPublisher;
 import org.springframework.beans.factory.annotation.Autowired;

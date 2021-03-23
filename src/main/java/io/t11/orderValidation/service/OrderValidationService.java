@@ -1,8 +1,8 @@
 package io.t11.orderValidation.service;
 
 import com.group11.soap.api.order_validation.ValidateOrderRequest;
-import io.t11.orderValidation.dao.StockRepository;
-import io.t11.orderValidation.model.Stock;
+import io.t11.orderValidation.dao.OrderRepository;
+import io.t11.orderValidation.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +12,10 @@ import java.util.Optional;
 public class OrderValidationService implements IOrderValidationService{
 
     @Autowired
-    StockRepository stockRepository;
+    OrderRepository orderRepository;
 
-    public OrderValidationService(StockRepository stockRepository) {
-        this.stockRepository = stockRepository;
+    public OrderValidationService(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
     }
 
     @Override
@@ -46,12 +46,12 @@ public class OrderValidationService implements IOrderValidationService{
     }
 
     @Override
-    public Stock updateOrderValidity(Long id, String status) {
-        Optional<Stock> stock = stockRepository.findById(id);
-        stock.ifPresent(order->{
-            order.setValidationStatus(status);
-            stockRepository.save(order);
+    public Order updateOrderValidity(Long id, String status) {
+        Optional<Order> order = orderRepository.findById(id);
+        order.ifPresent(createdOrder->{
+            createdOrder.setValidationStatus(status);
+            orderRepository.save(createdOrder);
         });
-        return stock.get();
+        return order.get();
     }
 }

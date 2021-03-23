@@ -1,8 +1,7 @@
 package io.t11.orderValidation.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.group11.soap.api.order_validation.Order;
-import io.t11.orderValidation.model.Stock;
+import io.t11.orderValidation.model.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,19 +25,19 @@ public class OrderValidationPublisher implements IOrderValidationPublisher {
     @Autowired
     RedisTemplate<String, Order> redisTemplate;
 
-    public OrderValidationPublisher(RedisTemplate<String,Order> redisTemplate) {
+    public OrderValidationPublisher(RedisTemplate<String, Order> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
     @Override
-    public void publishValidOrder(Stock stock){
-        logger.info("Publishing: {}", stock.getId()," to trade engine");
-        redisTemplate.convertAndSend(validOrdersTopic().getTopic(), stock);
+    public void publishValidOrder(Order order){
+        logger.info("Publishing: {}", order.getId()," to trade engine");
+        redisTemplate.convertAndSend(validOrdersTopic().getTopic(), order);
     }
 
     @Override
     public void publishOrderToRegister(Order order) throws JsonProcessingException {
-        logger.info("Publishing: {}",order.getOrderId()," to register");
+        logger.info("Publishing: {}",order.getId()," to register");
         redisTemplate.convertAndSend(registerTopic().getTopic(),order);
     }
 

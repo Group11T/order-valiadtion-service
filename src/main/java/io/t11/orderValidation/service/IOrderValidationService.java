@@ -1,11 +1,11 @@
 package io.t11.orderValidation.service;
 
 import com.group11.soap.api.order_validation.ValidateOrderRequest;
-import io.t11.orderValidation.model.Stock;
+import io.t11.orderValidation.model.Order;
 
 public interface IOrderValidationService {
 
      boolean validateOrder(ValidateOrderRequest orderRequest);
 
-     Stock updateOrderValidity(Long id, String status);
+     Order updateOrderValidity(Long id, String status);
 }
