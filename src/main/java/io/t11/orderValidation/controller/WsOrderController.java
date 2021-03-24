@@ -42,8 +42,8 @@ public class WsOrderController {
             order.setId(orderRequest.getOrderId());
             order.setQuantity(orderRequest.getQuantity());
             order.setPrice(orderRequest.getPrice());
-            order.setProduct(orderRequest.getProduct());
-            order.setSide(orderRequest.getSide());
+            order.setProduct(orderRequest.getProduct().toUpperCase());
+            order.setSide(orderRequest.getSide().toUpperCase());
             order.setValidationStatus(successStatus);
             order.setUserId(orderRequest.getUserId());
             orderPublisher.publishValidOrder(order);
@@ -51,6 +51,7 @@ public class WsOrderController {
             validateOrderResponse.setStatus(successStatus);
         }else {
             validateOrderResponse.setStatus(failedStatus);
+//           setReason for failure here
         }
 
         logger.info("updating order status",orderRequest.getOrderId());
