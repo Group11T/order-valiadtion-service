@@ -4,13 +4,19 @@ import com.group11.soap.api.order_validation.ValidateOrderRequest;
 import io.t11.orderValidation.dao.OrderRepository;
 import io.t11.orderValidation.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class OrderValidationService implements IOrderValidationService{
 
+    List<String> stocks = Arrays.asList("MSFT", "NFLX", "GOOGL", "AAPL", "TSLA", "IBM", "ORCL", "AMZN");
     @Autowired
     OrderRepository orderRepository;
 
@@ -20,12 +26,15 @@ public class OrderValidationService implements IOrderValidationService{
 
     @Override
     public boolean validateOrder(final ValidateOrderRequest orderRequest) {
-        if (orderRequest.getSide().equals("Buy")){
-            return buyOrderValidate(orderRequest);
-        }else if (orderRequest.getSide().equals("Sell")){
-            return sellOrderValidate(orderRequest);
+        if (stocks.contains(orderRequest.getProduct().toUpperCase())) {
+            if (orderRequest.getSide().equalsIgnoreCase("Buy")) {
+                return buyOrderValidate(orderRequest);
+            } else if (orderRequest.getSide().equals("Sell")) {
+                return sellOrderValidate(orderRequest);
+            }
+            return false;
         }
-        return  false;
+        return false;
     }
 
     boolean buyOrderValidate(ValidateOrderRequest orderRequest){
@@ -53,5 +62,12 @@ public class OrderValidationService implements IOrderValidationService{
             orderRepository.save(createdOrder);
         });
         return order.get();
+    }
+
+    Boolean checkOrderBidRange(){
+        RestTemplate restTemplate = new RestTemplate();
+        String currentMarketBid  = "http://localhost:8080/find-portfolio/2";
+        ResponseEntity<String> response = restTemplate.getForEntity(currentMarketBid , String.class);
+        return response.hasBody();
     }
 }
