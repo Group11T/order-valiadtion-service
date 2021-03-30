@@ -21,7 +21,6 @@ public class Order {
 
     private String validationStatus;
 
-
     private Long userId;
 
     public Long getId() {
