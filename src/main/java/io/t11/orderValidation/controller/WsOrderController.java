@@ -53,8 +53,8 @@ public class WsOrderController {
             validateOrderResponse.setStatus(failedStatus);
 //           setReason for failure here
         }
-
-        logger.info("updating order status",orderRequest.getOrderId());
+        logger.info("updating order status"+orderValidationService.validateOrder(orderRequest));
+        logger.info("updating order status"+orderRequest.getOrderId());
         orderValidationService.updateOrderValidity(orderRequest.getOrderId(),validateOrderResponse.getStatus());
         return validateOrderResponse;
     }
