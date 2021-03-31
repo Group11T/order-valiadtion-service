@@ -96,12 +96,14 @@ public class OrderValidationService implements IOrderValidationService{
 
     Boolean checkSellBidRange(ValidateOrderRequest orderRequest){
         RestTemplate restTemplate = new RestTemplate();
-        LinkedHashMap response1 = restTemplate.getForObject("https://exchange.matraining.com/md/IBM",LinkedHashMap.class);
+         String url = ("https://exchange.matraining.com/md/"+orderRequest.getProduct().toUpperCase());
+        String url2 = ("https://exchange2.matraining.com/md/"+orderRequest.getProduct().toUpperCase());
+        LinkedHashMap response1 = restTemplate.getForObject(url,LinkedHashMap.class);
         int value = (int) response1.get("SELL_LIMIT");
         double price = (double) response1.get("ASK_PRICE");
         int shift = (int) response1.get("MAX_PRICE_SHIFT");
         try{
-            LinkedHashMap response2 = restTemplate.getForObject("https://exchange2.matraining.com/md/IBM",LinkedHashMap.class);
+            LinkedHashMap response2 = restTemplate.getForObject(url2,LinkedHashMap.class);
             int value2 = (int) response2.get("SELL_LIMIT");
             double price2 = (double) response2.get("ASK_PRICE");
             int shift2 = (int) response2.get("MAX_PRICE_SHIFT");
@@ -118,6 +120,6 @@ public class OrderValidationService implements IOrderValidationService{
     }
 
     private boolean validRange(double value, double price, int shift)  {
-        return (value>=(price-shift) & value <= (price+shift));
+        return (value>=(price-shift) && value <= (price+shift));
     }
 }
