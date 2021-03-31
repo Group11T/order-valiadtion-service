@@ -56,7 +56,7 @@ public class OrderValidationService implements IOrderValidationService{
 
     boolean sellOrderValidate(ValidateOrderRequest orderRequest){
         if(userRepository.findById(orderRequest.getUserId()).isPresent()){
-            return checkSellBidRange(orderRequest);
+            return true;
         };
         return false;
     }
