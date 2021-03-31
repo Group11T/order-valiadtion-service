@@ -48,7 +48,7 @@ public class OrderValidationService implements IOrderValidationService{
        if(userRepository.findById(orderRequest.getUserId()).isPresent()){
           User user =  userRepository.findById(orderRequest.getUserId()).get();
           if(user.getBalance() >= (orderRequest.getPrice()*orderRequest.getQuantity())) {
-              return checkBuyBidRange(orderRequest);
+              return true;
           }
         };
        return false;
